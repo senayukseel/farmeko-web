@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurumsal | FARMEKO</title>
+  <meta name="description" content="Farmeko hakkında: şirketimiz, kalite belgelerimiz ve değerlerimiz.">
+
+  <!-- Favicon & app icons (FARMEKO standard block - same on every page) -->
+  <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="FARMEKO" />
+  <link rel="manifest" href="images/site.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#000000" />
+
+    <!-- Fonts: preload so text does not jump when the font arrives -->
+  <link rel="preload" href="fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/PlayfairDisplay-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <script>
+    // Tarayıcı sayfayı çizmeden hemen önce temayı kontrol et ve uygula
+    (function () {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-bs-theme", savedTheme);
+    })();
+  </script>
+
+
+  <!-- Apply saved theme BEFORE render to avoid a white flash -->
+  <script>
+    try { document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("farmeko_theme") || "light"); } catch (e) {}
+  </script>
+
+  <style>
+    /* About */
+    .fk-about-visual {
+      border-radius: var(--fk-radius);
+      background: linear-gradient(135deg, #1a3304 0%, #4a850a 100%);
+      color: rgba(255,255,255,.12);
+      min-height: 320px; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11rem; position: relative; overflow: hidden;
+    }
+    .fk-about-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .fk-about-point { display: flex; gap: .8rem; align-items: flex-start; margin-bottom: 1rem; }
+    .fk-about-point i { font-size: 1.5rem; color: var(--fk-accent); line-height: 1.2; }
+
+    /* Mission / Vision / Values */
+    .fk-value-card {
+      height: 100%;
+      border: 1px solid var(--bs-border-color);
+      border-radius: var(--fk-radius);
+      background: var(--bs-body-bg);
+      padding: 1.8rem 1.4rem;
+      transition: all .25s ease;
+    }
+    .fk-value-card:hover { transform: translateY(-5px); border-color: var(--fk-green-light); box-shadow: 0 10px 28px rgba(74,133,10,.15); }
+    .fk-value-icon {
+      width: 60px; height: 60px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(116,204,0,.15); color: var(--fk-accent);
+      font-size: 1.8rem; margin-bottom: 1rem;
+    }
+
+    /* Certificates & documents */
+    .fk-doc-card {
+      height: 100%;
+      border: 1px solid var(--bs-border-color);
+      border-radius: var(--fk-radius);
+      background: var(--bs-body-bg);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: all .25s ease;
+    }
+    .fk-doc-card:hover { box-shadow: 0 10px 26px rgba(0,0,0,.12); transform: translateY(-4px); }
+    .fk-doc-thumb {
+      aspect-ratio: 4 / 3;
+      background: var(--bs-tertiary-bg);
+      color: var(--fk-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      border-bottom: 1px solid var(--bs-border-color);
+    }
+    .fk-doc-row {
+      display: flex; align-items: center; gap: 1rem;
+      border: 1px solid var(--bs-border-color);
+      border-radius: var(--fk-radius);
+      background: var(--bs-body-bg);
+      padding: 1rem 1.2rem;
+      height: 100%;
+    }
+    .fk-doc-row > i { font-size: 2rem; color: var(--fk-accent); }
+
+    /* Viewer modal */
+    .fk-viewer { min-height: 70vh; display: flex; align-items: center; justify-content: center; background: var(--bs-tertiary-bg); }
+    .fk-viewer iframe { width: 100%; height: 75vh; border: 0; background: #fff; }
+    .fk-viewer img { max-width: 100%; max-height: 75vh; object-fit: contain; }
+  </style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="fk-page-header">
+      <div class="container">
+        <h1 data-i18n="corp.title"></h1>
+        <ul class="fk-breadcrumb">
+          <li><a href="index.html" data-i18n="nav.home"></a></li>
+          <li data-i18n="nav.corporate"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT US ================= -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6">
+            <h2 class="fk-section-title mb-4" data-i18n="corp.about.title"></h2>
+            <p class="lead" data-i18n="corp.about.lead"></p>
+            <p class="text-body-secondary" data-i18n="corp.about.text"></p>
+
+            <div class="mt-4">
+              <div class="fk-about-point">
+                <i class="bi bi-check-circle-fill"></i>
+                <div><strong data-i18n="corp.point1.title"></strong><br><span class="small text-body-secondary" data-i18n="corp.point1.text"></span></div>
+              </div>
+              <div class="fk-about-point">
+                <i class="bi bi-check-circle-fill"></i>
+                <div><strong data-i18n="corp.point2.title"></strong><br><span class="small text-body-secondary" data-i18n="corp.point2.text"></span></div>
+              </div>
+              <div class="fk-about-point">
+                <i class="bi bi-check-circle-fill"></i>
+                <div><strong data-i18n="corp.point3.title"></strong><br><span class="small text-body-secondary" data-i18n="corp.point3.text"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- Replace with a real photo: add images/corporate.jpg (the icon stays as fallback) -->
+            <div class="fk-about-visual">
+              <i class="bi bi-tree-fill"></i>
+              <img src="images/corporate.jpg" alt="Farmeko" loading="lazy" onerror="this.remove()">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MISSION / VISION / VALUES ================= -->
+    <section class="py-5 bg-body-tertiary">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="fk-value-card">
+              <div class="fk-value-icon"><i class="bi bi-bullseye"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="corp.mission.title"></h3>
+              <p class="text-body-secondary mb-0" data-i18n="corp.mission.text"></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="fk-value-card">
+              <div class="fk-value-icon"><i class="bi bi-eye-fill"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="corp.vision.title"></h3>
+              <p class="text-body-secondary mb-0" data-i18n="corp.vision.text"></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="fk-value-card">
+              <div class="fk-value-icon"><i class="bi bi-gem"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="corp.values.title"></h3>
+              <p class="text-body-secondary mb-0" data-i18n="corp.values.text"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUALITY CERTIFICATES ================= -->
+    <section class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fk-section-title" data-i18n="corp.cert.title"></h2>
+          <p class="text-body-secondary mt-3" data-i18n="corp.cert.subtitle"></p>
+        </div>
+        <!-- Filled by js/corporate.js -->
+        <div id="certGrid" class="row g-4"></div>
+      </div>
+    </section>
+
+    <!-- ================= DOCUMENTS ================= -->
+    <section class="py-5 bg-body-tertiary">
+      <div class="container">
+        <div class="mb-4">
+          <h2 class="fk-section-title" data-i18n="corp.docs.title"></h2>
+        </div>
+        <!-- Filled by js/corporate.js -->
+        <div id="docList" class="row g-3"></div>
+      </div>
+    </section>
+
+    <!-- ================= CTA BAND ================= -->
+    <section class="fk-cta py-5">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+          <h2 class="h3 fw-bold mb-1" data-i18n="corp.cta.title"></h2>
+          <p class="mb-0 text-white-50" data-i18n="corp.cta.text"></p>
+        </div>
+        <a href="b2b.html" class="btn btn-farmeko btn-lg" data-i18n="corp.cta.button"></a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= DOCUMENT VIEWER (Bootstrap modal) ================= -->
+  <div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="docModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="docModalTitle"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n-aria="corp.close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div id="docViewer" class="fk-viewer"></div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <small class="text-body-secondary" data-i18n="corp.viewer.hint"></small>
+          <a id="docDownload" href="#" class="btn btn-farmeko" target="_blank" rel="noopener" download>
+            <i class="bi bi-download me-1"></i><span data-i18n="corp.download"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/corporate.js"></script>
+</body>
+</html>

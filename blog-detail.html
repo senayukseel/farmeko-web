@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | FARMEKO</title>
+  <meta name="description" content="Farmeko blog yazısı.">
+
+  <!-- Favicon & app icons (FARMEKO standard block - same on every page) -->
+  <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="FARMEKO" />
+  <link rel="manifest" href="images/site.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#000000" />
+
+    <!-- Fonts: preload so text does not jump when the font arrives -->
+  <link rel="preload" href="fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/PlayfairDisplay-Variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <script>
+    // Tarayıcı sayfayı çizmeden hemen önce temayı kontrol et ve uygula
+    (function () {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-bs-theme", savedTheme);
+    })();
+  </script>
+
+
+  <!-- Apply saved theme BEFORE render to avoid a white flash -->
+  <script>
+    try { document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("farmeko_theme") || "light"); } catch (e) {}
+  </script>
+
+  <style>
+    /* Page header band + breadcrumb */
+    /* Thinner header band on this page */
+    .fk-page-header { padding: 1.6rem 0; }
+
+    /* Section titles */
+    /* Section titles: extra bottom space on this page */
+    .fk-section-title { margin-bottom: 1.2rem; }
+
+    /* Article */
+    .fk-article { max-width: 820px; margin: 0 auto; }
+    .fk-article-meta { font-size: .85rem; color: var(--bs-secondary-color); }
+    .fk-article-cat { text-transform: uppercase; letter-spacing: .5px; color: var(--fk-accent); font-weight: 700; }
+    .fk-article-title { font-weight: 800; letter-spacing: -.3px; }
+    .fk-article-cover {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--fk-radius);
+      background: var(--bs-tertiary-bg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--bs-secondary-color);
+      font-size: 4.5rem;
+      overflow: hidden;
+    }
+    .fk-article-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .fk-article-body { font-size: 1.06rem; line-height: 1.85; }
+    .fk-article-body h5 { font-weight: 800; margin-top: 1.8rem; }
+    .fk-article-body ul { padding-left: 1.3rem; }
+    .fk-article-body li { margin-bottom: .35rem; }
+
+    /* Share */
+    .fk-share .btn { width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; }
+
+    /* Prev / next */
+    .fk-nav-post {
+      display: block; height: 100%;
+      border: 1px solid var(--bs-border-color);
+      border-radius: var(--fk-radius);
+      padding: 1rem 1.2rem;
+      text-decoration: none; color: inherit;
+      transition: all .2s ease;
+    }
+    .fk-nav-post:hover { border-color: var(--fk-green-light); box-shadow: 0 8px 22px rgba(74,133,10,.15); color: inherit; }
+    .fk-nav-post small { color: var(--fk-accent); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+  </style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- ================= BREADCRUMB BAND ================= -->
+    <section class="fk-page-header">
+      <div class="container">
+        <ul id="breadcrumb" class="fk-breadcrumb"></ul>
+      </div>
+    </section>
+
+    <!-- ================= ARTICLE (filled by js/blog-detail.js) ================= -->
+    <section class="py-5">
+      <div id="articleBox" class="container"></div>
+    </section>
+
+    <!-- ================= OTHER ARTICLES ================= -->
+    <section id="moreSection" class="py-5 bg-body-tertiary d-none">
+      <div class="container">
+        <h2 class="fk-section-title h3" data-i18n="bd.more"></h2>
+        <div id="moreGrid" class="row g-4"></div>
+      </div>
+    </section>
+
+    <!-- ================= CTA BAND ================= -->
+    <section id="ctaSection" class="fk-cta py-5 d-none">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+          <h2 class="h3 fw-bold mb-1" data-i18n="bd.cta.title"></h2>
+          <p class="mb-0 text-white-50" data-i18n="bd.cta.text"></p>
+        </div>
+        <a href="products.html" class="btn btn-farmeko btn-lg" data-i18n="bd.cta.button"></a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/blog-detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ürünler | FARMEKO</title>
+  <meta name="description" content="Farmeko ürünleri: yem katkıları, hayvancılık ekipmanları, tarım makineleri ve veteriner ürünleri.">
+
+  <!-- Favicon & app icons (FARMEKO standard block - same on every page) -->
+  <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="FARMEKO" />
+  <link rel="manifest" href="images/site.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#000000" />
+
+    <!-- Fonts: preload so text does not jump when the font arrives -->
+  <link rel="preload" href="fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/PlayfairDisplay-Variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <script>
+    // Tarayıcı sayfayı çizmeden hemen önce temayı kontrol et ve uygula
+    (function () {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-bs-theme", savedTheme);
+    })();
+  </script>
+
+
+  <!-- Apply saved theme BEFORE render to avoid a white flash -->
+  <script>
+    try { document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("farmeko_theme") || "light"); } catch (e) {}
+  </script>
+
+  <!-- Products page styles (product-card rules are copied from index.html;
+       we will merge the duplicates into style.css at the end of the project) -->
+  <style>
+    /* Sidebar filter */
+    .fk-filter-box {
+      border: 1px solid var(--bs-border-color);
+      border-radius: var(--fk-radius);
+      background: var(--bs-body-bg);
+      padding: 1.1rem;
+    }
+    .fk-filter-title {
+      font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: .5px;
+      padding-bottom: .7rem; margin-bottom: .8rem; position: relative;
+    }
+    .fk-filter-title::after {
+      content: ""; position: absolute; left: 0; bottom: 0;
+      width: 36px; height: 3px; background: var(--fk-green-light);
+    }
+    .fk-filter-item {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+      text-align: left; background: transparent; border: 0;
+      padding: .55rem .6rem; border-radius: .35rem;
+      color: var(--bs-body-color); font-weight: 600; font-size: .92rem;
+      transition: background .15s ease, color .15s ease;
+    }
+    .fk-filter-item:hover { background: var(--bs-tertiary-bg); color: var(--fk-accent); }
+    .fk-filter-item.active { background: var(--fk-green-dark); color: #fff; }
+    [data-bs-theme="dark"] .fk-filter-item.active { background: var(--fk-green-light); color: #000; }
+    .fk-filter-item .fk-count {
+      font-size: .72rem; font-weight: 700; padding: .1rem .5rem; border-radius: 2rem;
+      background: var(--bs-tertiary-bg); color: var(--bs-secondary-color);
+    }
+    .fk-filter-item.active .fk-count { background: rgba(255,255,255,.25); color: inherit; }
+    .fk-sub-list { list-style: none; margin: .2rem 0 .5rem .9rem; padding-left: .6rem; border-left: 2px solid var(--fk-green-light); }
+    .fk-sub-list .fk-filter-item { font-weight: 500; font-size: .87rem; padding: .4rem .6rem; }
+
+    /* Empty state */
+    .fk-empty { text-align: center; padding: 3rem 1rem; border: 2px dashed var(--bs-border-color); border-radius: var(--fk-radius); }
+    .fk-empty i { font-size: 3rem; color: var(--bs-secondary-color); }
+  </style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="fk-page-header">
+      <div class="container">
+        <h1 data-i18n="products.title"></h1>
+        <ul class="fk-breadcrumb">
+          <li><a href="index.html" data-i18n="nav.home"></a></li>
+          <li data-i18n="nav.products"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= FILTERS + PRODUCT GRID ================= -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row g-4">
+
+          <!-- Sidebar -->
+          <aside class="col-lg-3">
+            <button class="btn btn-outline-farmeko w-100 d-lg-none mb-3" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#filterPanel"
+                    aria-expanded="false" aria-controls="filterPanel">
+              <i class="bi bi-funnel-fill me-1"></i><span data-i18n="products.filters"></span>
+            </button>
+
+            <div id="filterPanel" class="collapse d-lg-block">
+              <div class="fk-filter-box">
+                <h2 class="fk-filter-title" data-i18n="products.categories"></h2>
+                <ul id="categoryList" class="list-unstyled mb-0"></ul>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main column -->
+          <div class="col-lg-9">
+
+            <!-- Search -->
+            <form id="searchForm" class="mb-3" role="search" autocomplete="off">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input id="searchInput" type="search" class="form-control"
+                       data-i18n-placeholder="products.search.placeholder"
+                       data-i18n-aria="products.search.label">
+              </div>
+            </form>
+
+            <!-- Result count + clear filters -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+              <p id="resultCount" class="mb-0 text-body-secondary fw-semibold" aria-live="polite"></p>
+              <button id="clearFilters" type="button" class="btn btn-sm btn-outline-secondary d-none">
+                <i class="bi bi-x-circle me-1"></i><span data-i18n="products.clear"></span>
+              </button>
+            </div>
+
+            <!-- Filled by js/products.js from data.js -->
+            <div id="productGrid" class="row g-4"></div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

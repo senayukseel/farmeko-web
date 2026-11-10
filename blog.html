@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | FARMEKO</title>
+  <meta name="description" content="Farmeko blog: tarım, hayvancılık teknolojileri ve hayvan sağlığı hakkında yazılar.">
+
+  <!-- Favicon & app icons (FARMEKO standard block - same on every page) -->
+  <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="FARMEKO" />
+  <link rel="manifest" href="images/site.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#000000" />
+
+    <!-- Fonts: preload so text does not jump when the font arrives -->
+  <link rel="preload" href="fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/PlayfairDisplay-Variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <script>
+    // Tarayıcı sayfayı çizmeden hemen önce temayı kontrol et ve uygula
+    (function () {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-bs-theme", savedTheme);
+    })();
+  </script>
+
+  <!-- Apply saved theme BEFORE render to avoid a white flash -->
+  <script>
+    try { document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("farmeko_theme") || "light"); } catch (e) {}
+  </script>
+
+  <style>
+    /* Category chips */
+    .fk-chip {
+      border: 1px solid var(--bs-border-color);
+      background: var(--bs-body-bg);
+      color: var(--bs-body-color);
+      border-radius: 2rem;
+      padding: .4rem 1rem;
+      font-weight: 600; font-size: .88rem;
+      transition: all .15s ease;
+    }
+    .fk-chip:hover { border-color: var(--fk-green-light); color: var(--fk-accent); }
+    .fk-chip.active { background: var(--fk-green-dark); border-color: var(--fk-green-dark); color: #fff; }
+    [data-bs-theme="dark"] .fk-chip.active { background: var(--fk-green-light); border-color: var(--fk-green-light); color: #000; }
+  </style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="fk-page-header">
+      <div class="container">
+        <h1 data-i18n="blog.title"></h1>
+        <ul class="fk-breadcrumb">
+          <li><a href="index.html" data-i18n="nav.home"></a></li>
+          <li data-i18n="nav.blog"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= SEARCH + CATEGORIES + POSTS ================= -->
+    <section class="py-5">
+      <div class="container">
+
+        <p class="lead text-body-secondary mb-4" data-i18n="blog.intro"></p>
+
+        <!-- Search -->
+        <form id="blogSearchForm" class="mb-3" role="search" autocomplete="off">
+          <div class="input-group input-group-lg">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input id="blogSearchInput" type="search" class="form-control"
+                   data-i18n-placeholder="blog.search.placeholder"
+                   data-i18n-aria="blog.search.label">
+          </div>
+        </form>
+
+        <!-- Category chips (filled by js/blog.js) -->
+        <div id="blogChips" class="d-flex flex-wrap gap-2 mb-4"></div>
+
+        <p id="blogCount" class="text-body-secondary fw-semibold mb-3" aria-live="polite"></p>
+
+        <!-- Posts (filled by js/blog.js from data.js) -->
+        <div id="blogGrid" class="row g-4"></div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/blog.js"></script>
+</body>
+</html>
